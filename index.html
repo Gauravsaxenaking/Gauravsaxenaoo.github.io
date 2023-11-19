@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* CSS code for styling the clock */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282828;
+        }
+
+        .clock {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #1df52f;
+            border-radius: 50%;
+            position: relative;
+            background-image: url(https://media.geeksforgeeks.org/wp-content/uploads/20210302161254/imgonlinecomuaCompressToSizeOmNATjUMFKw-300); /* Image used for the clock background */
+            background-size: cover;
+        }
+
+        .clock::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            background-color: #1df52f;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hour,
+        .minute,
+        .second {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: left;
+        }
+
+        .hour {
+            width: 80px;
+            height: 6px;
+            background-color: #1df52f;
+            transform: rotate(30deg);
+        }
+
+        .minute {
+            width: 120px;
+            height: 4px;
+            background-color: #1df52f;
+            transform: rotate(60deg);
+        }
+
+        .second {
+            width: 140px;
+            height: 2px;
+            background-color: #1df52f;
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class="hour"></div>
+            <div class="minute"></div>
+            <div class="second"></div>
+        </div>
+    </div>
+    <script>
+        // JavaScript code for adding the clock functionality
+        // Get the hour, minute, and second elements
+        const hour = document.querySelector(".hour");
+        const minute = document.querySelector(".minute");
+        const second = document.querySelector(".second");
+
+        // Define a function to update the clock
+        function updateClock() {
+            // Get the current date and time
+            const date = new Date();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            // Calculate the rotation angles for each hand
+            const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+            const minuteAngle = minutes * 6 + seconds * 0.1;
+            const secondAngle = seconds * 6;
+
+            // Apply the rotation to each hand
+            hour.style.transform = `rotate(${hourAngle}deg)`;
+            minute.style.transform = `rotate(${minuteAngle}deg)`;
+            second.style.transform = `rotate(${secondAngle}deg)`;
+        }
+
+        // Call the updateClock function every second
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
